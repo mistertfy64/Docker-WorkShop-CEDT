@@ -11,8 +11,8 @@ FROM node:20.11-slim AS builder
 WORKDIR /app
 
 # TODO(step-4b): copy package.json and package-lock.json, then install deps.
-COPY package.json ./
-COPY package-lock.json ./
+COPY ./app/package.json .
+COPY ./app/package-lock.json .
 RUN npm install --omit=dev
 
 # TODO(step-4c): copy the rest of the app source into /app.
@@ -28,7 +28,7 @@ FROM node:20.11-slim
 WORKDIR /app
 
 # TODO(step-4e): copy the fully-installed app from the builder stage.
-COPY --from=builder /app ./dist
+COPY --from=builder /app .
 
 ENV NODE_ENV=production
 EXPOSE 3000
@@ -36,7 +36,7 @@ EXPOSE 3000
 # TODO(step-4f): add a HEALTHCHECK that probes http://localhost:3000/health.
 #   IMPORTANT: `node:20.11-slim` does NOT ship with curl or wget.
 #   Use Node's built-in http module instead:
-RUN --interval=10s --timeout=3s --start-period=5s --retries=5 \
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=5 \
   CMD node -e "require('http').get('http://localhost:3000/health', r => process.exit(r.statusCode===200?0:1)).on('error', () => process.exit(1))"
 
 # TODO(step-4g): declare the container start command.
