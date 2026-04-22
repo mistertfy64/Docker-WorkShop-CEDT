@@ -16,7 +16,7 @@ COPY ./app/package-lock.json .
 RUN npm install --omit=dev
 
 # TODO(step-4c): copy the rest of the app source into /app.
-COPY . .
+COPY ./app /app
 
 # =============================================================================
 # Runtime stage — slim final image. Nothing from builder's caches leaks in.
@@ -40,4 +40,4 @@ HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=5 \
   CMD node -e "require('http').get('http://localhost:3000/health', r => process.exit(r.statusCode===200?0:1)).on('error', () => process.exit(1))"
 
 # TODO(step-4g): declare the container start command.
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
