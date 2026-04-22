@@ -28,7 +28,7 @@ FROM node:20.11-slim
 WORKDIR /app
 
 # TODO(step-4e): copy the fully-installed app from the builder stage.
-COPY --from=builder /app ./
+COPY --from=builder /app ./dist
 
 ENV NODE_ENV=production
 EXPOSE 3000
