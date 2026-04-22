@@ -9,6 +9,7 @@ env:
   IMAGE_NAME: workshop-app
   # After step-6d, your Docker Hub username will live in a secret.
   # For local tagging below we reference ${{ secrets.DOCKERHUB_USERNAME }}.
+  
 
 jobs:
   build-scan-push:
