@@ -1,7 +1,7 @@
 services:
   web:
     # TODO(step-5a): build the image from the local Dockerfile and expose port 3000.
-      build: ./dist
+      build: .
       ports:
         - "3000:3000"
 
